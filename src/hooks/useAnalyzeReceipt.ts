@@ -5,7 +5,7 @@ export interface ExtractedItem {
   price: number
 }
 
-export interface GeminiResult {
+export interface AnalyzeResult {
   items: ExtractedItem[]
   tax: number
   serviceCharge: number
@@ -13,11 +13,11 @@ export interface GeminiResult {
   raw?: string
 }
 
-export function useGemini() {
+export function useAnalyzeReceipt() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const analyzeImage = useCallback(async (imageBase64: string): Promise<GeminiResult | null> => {
+  const analyzeImage = useCallback(async (imageBase64: string): Promise<AnalyzeResult | null> => {
     setLoading(true)
     setError(null)
 
@@ -29,11 +29,11 @@ export function useGemini() {
       })
 
       if (!res.ok) {
-        const err = await res.text()
-        throw new Error(err || `HTTP ${res.status}`)
+        const errBody = await res.json().catch(() => ({}))
+        throw new Error(errBody.error || `HTTP ${res.status}`)
       }
 
-      const data: GeminiResult = await res.json()
+      const data: AnalyzeResult = await res.json()
 
       if (!data.items?.length) {
         throw new Error('Tidak ada item yang terdeteksi. Coba foto ulang struknya.')

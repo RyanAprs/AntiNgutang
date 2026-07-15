@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
 import { useRoute } from 'wouter'
 import type { Item, Participant } from './types'
-import { useGemini } from './hooks/useGemini'
+import { useAnalyzeReceipt } from './hooks/useAnalyzeReceipt'
 import { createSession, useSessionSync } from './hooks/useSession'
 import CameraCapture from './components/CameraCapture'
 import ItemList from './components/ItemList'
@@ -32,7 +32,7 @@ function HostApp() {
   const [creatingSession, setCreatingSession] = useState(false)
   const [locked, setLocked] = useState(false)
 
-  const { analyzeImage, loading, error, clearError } = useGemini()
+  const { analyzeImage, loading, error, clearError } = useAnalyzeReceipt()
   const { session, lockSession } = useSessionSync(sessionId)
 
   // Persist sessionId across refreshes
