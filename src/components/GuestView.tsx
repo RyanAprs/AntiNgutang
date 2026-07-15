@@ -180,15 +180,37 @@ export default function GuestView({ sessionId }: GuestViewProps) {
         <div className="guest-item-list">
           {session.items.map((item) => {
             const selected = me.assignedItems.includes(item.id)
+            const otherPickers = session.participants.filter(
+              (p) => p.id !== myId && p.assignedItems.includes(item.id),
+            )
+            const totalPickers = otherPickers.length + (selected ? 1 : 0)
+            const pricePerPerson = item.price / Math.max(totalPickers, 1)
+
             return (
               <button
                 key={item.id}
                 className={`guest-item-btn ${selected ? 'selected' : ''}`}
                 onClick={() => toggleItem(item.id)}
               >
-                <span className="item-name">{item.name}</span>
-                <span className="item-price">{formatCurrency(item.price, session.currency)}</span>
-                {selected && <span className="item-check">✓</span>}
+                <div className="guest-item-main">
+                  <span className="item-name">{item.name}</span>
+                  {otherPickers.length > 0 && (
+                    <span className="item-other-pickers">
+                      {otherPickers.map((p) => p.name).join(', ')} juga pesan
+                    </span>
+                  )}
+                </div>
+                <div className="guest-item-price-col">
+                  {totalPickers > 1 ? (
+                    <>
+                      <span className="item-price-per">{formatCurrency(pricePerPerson, session.currency)}/org</span>
+                      <span className="item-price-full">{formatCurrency(item.price, session.currency)}</span>
+                    </>
+                  ) : (
+                    <span className="item-price">{formatCurrency(item.price, session.currency)}</span>
+                  )}
+                  {selected && <span className="item-check">✓</span>}
+                </div>
               </button>
             )
           })}
