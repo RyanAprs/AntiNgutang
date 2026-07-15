@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { useRoute } from 'wouter'
 import type { Item, Participant } from './types'
 import { useGemini } from './hooks/useGemini'
@@ -10,6 +10,8 @@ import AssignModal from './components/AssignModal'
 import Summary from './components/Summary'
 import QRModal from './components/QRModal'
 import GuestView from './components/GuestView'
+
+const SESSION_STORAGE_KEY = 'antingutang-host-session'
 
 function generateId() {
   return Math.random().toString(36).substring(2, 9)
@@ -23,12 +25,26 @@ function HostApp() {
   const [currency, setCurrency] = useState<string | undefined>()
   const [assigningItem, setAssigningItem] = useState<string | null>(null)
   const [step, setStep] = useState<'scan' | 'assign'>('scan')
-  const [sessionId, setSessionId] = useState<string | null>(null)
+  const [sessionId, setSessionId] = useState<string | null>(
+    () => localStorage.getItem(SESSION_STORAGE_KEY),
+  )
   const [showQR, setShowQR] = useState(false)
   const [creatingSession, setCreatingSession] = useState(false)
+  const [locked, setLocked] = useState(false)
 
   const { analyzeImage, loading, error, clearError } = useGemini()
   const { session, lockSession } = useSessionSync(sessionId)
+
+  // Persist sessionId across refreshes
+  useEffect(() => {
+    if (sessionId) localStorage.setItem(SESSION_STORAGE_KEY, sessionId)
+    else localStorage.removeItem(SESSION_STORAGE_KEY)
+  }, [sessionId])
+
+  // Sync locked state from Supabase
+  useEffect(() => {
+    if (session?.locked) setLocked(true)
+  }, [session?.locked])
 
   const handleImageCapture = useCallback(async (base64: string) => {
     if (!base64) {
@@ -39,6 +55,7 @@ function HostApp() {
       setStep('scan')
       setSessionId(null)
       setShowQR(false)
+      setLocked(false)
       return
     }
 
@@ -57,6 +74,8 @@ function HostApp() {
     setServiceCharge(result.serviceCharge || 0)
     setCurrency(result.currency || undefined)
     setStep('assign')
+    setSessionId(null)
+    setLocked(false)
   }, [analyzeImage])
 
   function addParticipant(name: string) {
@@ -82,6 +101,10 @@ function HostApp() {
   }
 
   async function handleShare() {
+    if (sessionId) {
+      setShowQR(true)
+      return
+    }
     setCreatingSession(true)
     try {
       const id = await createSession(items, tax, serviceCharge, currency || 'IDR')
@@ -96,10 +119,13 @@ function HostApp() {
 
   async function handleLock() {
     await lockSession()
+    setLocked(true)
     setShowQR(false)
   }
 
   const selectedItem = items.find((i) => i.id === assigningItem) || null
+  const participantCount = session?.participants.length ?? 0
+  const doneCount = session?.participants.filter((p) => p.done).length ?? 0
 
   return (
     <div className="app">
@@ -119,14 +145,42 @@ function HostApp() {
 
       {step === 'assign' && items.length > 0 && (
         <>
-          <div className="share-row">
+          <div className="session-bar">
             <button
               className="btn btn-secondary share-btn"
               onClick={handleShare}
-              disabled={creatingSession}
+              disabled={creatingSession || locked}
             >
-              {creatingSession ? 'Membuat sesi...' : '🔗 Bagikan ke Peserta'}
+              {creatingSession
+                ? 'Membuat sesi...'
+                : sessionId
+                  ? '📱 Lihat QR'
+                  : '🔗 Bagikan ke Peserta'}
             </button>
+
+            {sessionId && !locked && (
+              <div className="session-status">
+                <span className="status-dot" />
+                <span className="status-text">
+                  {participantCount === 0
+                    ? 'Menunggu peserta...'
+                    : `${doneCount}/${participantCount} selesai`}
+                </span>
+                <button
+                  className="btn btn-primary lock-inline-btn"
+                  onClick={handleLock}
+                  disabled={participantCount === 0}
+                >
+                  Kunci Sesi
+                </button>
+              </div>
+            )}
+
+            {locked && (
+              <div className="session-locked">
+                ✓ Sesi dikunci
+              </div>
+            )}
           </div>
 
           <Participants
@@ -155,7 +209,6 @@ function HostApp() {
         <QRModal
           sessionId={sessionId}
           session={session}
-          onLock={handleLock}
           onClose={() => setShowQR(false)}
         />
       )}

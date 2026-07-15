@@ -5,11 +5,10 @@ import type { Session } from '../lib/supabase'
 interface QRModalProps {
   sessionId: string
   session: Session | null
-  onLock: () => void
   onClose: () => void
 }
 
-export default function QRModal({ sessionId, session, onLock, onClose }: QRModalProps) {
+export default function QRModal({ sessionId, session, onClose }: QRModalProps) {
   const [copied, setCopied] = useState(false)
   const joinUrl = `${window.location.origin}/join/${sessionId}`
 
@@ -60,12 +59,8 @@ export default function QRModal({ sessionId, session, onLock, onClose }: QRModal
           <p className="waiting-hint">Menunggu peserta bergabung...</p>
         )}
 
-        <button
-          className="btn btn-primary lock-btn"
-          onClick={onLock}
-          disabled={total === 0}
-        >
-          Kunci & Lihat Ringkasan
+        <button className="btn btn-outline close-qr-btn" onClick={onClose}>
+          Tutup
         </button>
       </div>
     </div>
