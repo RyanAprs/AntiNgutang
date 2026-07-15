@@ -628,10 +628,97 @@ body {
   margin-bottom: 16px;
 }
 
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
 .progress-label {
   font-size: 13px;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin: 0;
+}
+
+.toggle-breakdown {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: var(--green-dark);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.breakdown-card {
+  border-radius: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+}
+
+.breakdown-card.done {
+  border-color: var(--green);
+  background: #f0fdf4;
+}
+
+.breakdown-card.pending {
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+
+.breakdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.breakdown-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.breakdown-total {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green-dark);
+}
+
+.breakdown-items {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.breakdown-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.breakdown-shared {
+  color: var(--text-muted);
+}
+
+.breakdown-extra {
+  margin-top: 2px;
+  padding-top: 4px;
+  border-top: 1px dashed var(--border);
+}
+
+.breakdown-empty {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
 }
 
 .progress-list {

@@ -58,7 +58,7 @@ export default function CameraCapture({ onImageCapture, loading }: CameraCapture
             {loading && (
               <div className="preview-loading-overlay">
                 <div className="spinner" />
-                <p className="preview-loading-text">AI sedang membaca struk...</p>
+                <p className="preview-loading-text">Membaca struk...</p>
               </div>
             )}
           </div>
