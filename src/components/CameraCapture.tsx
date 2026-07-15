@@ -53,7 +53,15 @@ export default function CameraCapture({ onImageCapture, loading }: CameraCapture
         </div>
       ) : (
         <div className="preview-area">
-          <img src={preview} alt="Struk" className="preview-img" />
+          <div className="preview-img-wrap">
+            <img src={preview} alt="Struk" className={`preview-img ${loading ? 'preview-dimmed' : ''}`} />
+            {loading && (
+              <div className="preview-loading-overlay">
+                <div className="spinner" />
+                <p className="preview-loading-text">AI sedang membaca struk...</p>
+              </div>
+            )}
+          </div>
           <button className="btn btn-outline" onClick={() => { setPreview(null); onImageCapture('') }} disabled={loading}>
             Foto Ulang
           </button>

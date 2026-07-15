@@ -116,6 +116,11 @@ body {
   text-align: center;
 }
 
+.preview-img-wrap {
+  position: relative;
+  margin-bottom: 12px;
+}
+
 .preview-img {
   width: 100%;
   max-height: 300px;
@@ -123,7 +128,45 @@ body {
   border-radius: var(--radius);
   background: var(--surface);
   box-shadow: var(--shadow);
-  margin-bottom: 12px;
+  display: block;
+  transition: opacity 0.2s;
+}
+
+.preview-dimmed {
+  opacity: 0.4;
+}
+
+.preview-loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-radius: var(--radius);
+}
+
+.preview-loading-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(255,255,255,0.9);
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--green-light);
+  border-top-color: var(--green);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* Buttons */
