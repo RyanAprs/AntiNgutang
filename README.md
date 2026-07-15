@@ -64,7 +64,7 @@ Stateless by design — semua proses ada di client + satu API endpoint buat pang
 ### Instalasi
 
 ```bash
-git clone https://github.com/your-username/antingutang.git
+git clone https://github.com/RyanAprs/antingutang.git
 cd antingutang/antingutang
 
 npm install
