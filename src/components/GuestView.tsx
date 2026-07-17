@@ -57,7 +57,18 @@ export default function GuestView({ sessionId }: GuestViewProps) {
   }
 
   if (loading) {
-    return <div className="guest-loading">Memuat sesi...</div>
+    return (
+      <div className="app">
+        <header className="app-header">
+          <h1>AntiNgutang</h1>
+        </header>
+        <div className="guest-join">
+          <div className="skeleton skeleton-text" style={{ width: '50%', marginBottom: 16 }} />
+          <div className="skeleton" style={{ height: 48, borderRadius: 12, marginBottom: 8 }} />
+          <div className="skeleton" style={{ height: 48, borderRadius: 12 }} />
+        </div>
+      </div>
+    )
   }
 
   if (error || !session) {

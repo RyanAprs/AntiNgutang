@@ -143,6 +143,16 @@ function HostApp() {
 
       <CameraCapture onImageCapture={handleImageCapture} loading={loading} />
 
+      {loading && step === 'scan' && (
+        <div className="item-list">
+          <h3>Daftar Item</h3>
+          <div className="skeleton skeleton-text" style={{ width: '40%' }} />
+          <div className="skeleton skeleton-card" />
+          <div className="skeleton skeleton-card" />
+          <div className="skeleton skeleton-card" style={{ width: '70%' }} />
+        </div>
+      )}
+
       {step === 'assign' && items.length > 0 && (
         <>
           <div className="session-bar">
@@ -154,8 +164,8 @@ function HostApp() {
               {creatingSession
                 ? 'Membuat sesi...'
                 : sessionId
-                  ? '📱 Lihat QR'
-                  : '🔗 Bagikan ke Peserta'}
+                  ? 'Lihat QR'
+                  : 'Bagikan ke Peserta'}
             </button>
 
             {sessionId && !locked && (
@@ -178,7 +188,7 @@ function HostApp() {
 
             {locked && (
               <div className="session-locked">
-                ✓ Sesi dikunci
+                Sesi dikunci
               </div>
             )}
           </div>

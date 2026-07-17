@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-17T00:00:00.000Z",
+  "title": "Design System: AntiNgutang",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "Fresh Green", "canonical": "oklch(0.62 0.19 160)", "tonalRamp": ["oklch(0.15 0.19 160)", "oklch(0.26 0.19 160)", "oklch(0.38 0.19 160)", "oklch(0.50 0.19 160)", "oklch(0.62 0.19 160)", "oklch(0.74 0.19 160)", "oklch(0.86 0.19 160)", "oklch(0.95 0.19 160)"] },
+      "primary-dark": { "role": "primary", "displayName": "Fresh Green Dark", "canonical": "oklch(0.55 0.17 160)", "tonalRamp": [] },
+      "primary-light": { "role": "primary", "displayName": "Fresh Green Light", "canonical": "oklch(0.92 0.06 160)", "tonalRamp": [] },
+      "neutral-bg": { "role": "neutral", "displayName": "Cool Off-White", "canonical": "oklch(0.97 0.003 250)", "tonalRamp": [] },
+      "neutral-surface": { "role": "neutral", "displayName": "Clean White", "canonical": "oklch(1 0 0)", "tonalRamp": [] },
+      "neutral-text": { "role": "neutral", "displayName": "Ink", "canonical": "oklch(0.28 0.01 250)", "tonalRamp": [] },
+      "neutral-text-light": { "role": "neutral", "displayName": "Ink Light", "canonical": "oklch(0.48 0.01 250)", "tonalRamp": [] },
+      "neutral-text-muted": { "role": "neutral", "displayName": "Ink Muted", "canonical": "oklch(0.65 0.01 250)", "tonalRamp": [] },
+      "neutral-border": { "role": "neutral", "displayName": "Border Light", "canonical": "oklch(0.92 0.005 250)", "tonalRamp": [] },
+      "danger": { "role": "error", "displayName": "Danger", "canonical": "oklch(0.6 0.22 30)", "tonalRamp": [] },
+      "danger-bg": { "role": "error", "displayName": "Danger Background", "canonical": "oklch(0.95 0.02 30)", "tonalRamp": [] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "App header only. Tight letter-spacing for confident lockup." },
+      "body": { "displayName": "Body", "purpose": "Primary reading text. Max 65ch line length." },
+      "label": { "displayName": "Label", "purpose": "Tags, status text, hints, secondary labels." }
+    },
+    "shadows": [
+      { "name": "card-rest", "value": "0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06)", "purpose": "Subtle card definition on off-white background." },
+      { "name": "summary-lift", "value": "0 10px 25px rgba(0,0,0,0.1)", "purpose": "Summary card only. Signals the final action zone." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "all 0.15s", "purpose": "Default easing for state transitions (hover, focus, color shifts)." },
+      { "name": "modal-overlay", "value": "fadeIn 0.15s", "purpose": "Modal backdrop fade." },
+      { "name": "modal-slide", "value": "slideUp 0.2s", "purpose": "Bottom sheet slide-up entrance." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "480px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary call-to-action. Full-width on mobile, inline on desktop.",
+      "html": "<button class=\"ds-btn-primary\">Ambil Foto</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 15px; font-weight: 600; padding: 12px 24px; border-radius: 12px; border: none; cursor: pointer; background: #10b981; color: #fff; transition: background 0.15s; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; } .ds-btn-primary:hover { background: #059669; } .ds-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action. White background with green border.",
+      "html": "<button class=\"ds-btn-outline\">Foto Ulang</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 15px; font-weight: 600; padding: 12px 24px; border-radius: 12px; cursor: pointer; background: #fff; color: #374151; border: 1.5px solid #10b981; transition: background 0.15s; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; } .ds-btn-outline:hover { background: #d1fae5; } .ds-btn-outline:disabled { opacity: 0.5; cursor: not-allowed; }"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Text input for participant names and guest names.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Nama peserta...\" />",
+      "css": ".ds-input { width: 100%; padding: 8px 12px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; outline: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; box-sizing: border-box; } .ds-input:focus { border-color: #10b981; box-shadow: 0 0 0 2px #d1fae5; }"
+    },
+    {
+      "name": "Participant Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Participant name tag with remove button.",
+      "html": "<span class=\"ds-chip\">Ryan <button class=\"ds-chip-remove\" aria-label=\"Hapus Ryan\">×</button></span>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 6px; background: #d1fae5; color: #059669; padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: 500; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; } .ds-chip-remove { background: none; border: none; color: #059669; cursor: pointer; font-size: 16px; line-height: 1; padding: 0 2px; }"
+    },
+    {
+      "name": "Item Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Receipt item row. Tappable to assign participants.",
+      "html": "<button class=\"ds-item-card\"><span class=\"ds-item-name\">Nasi Goreng</span><span class=\"ds-item-price\">Rp35.000</span></button>",
+      "css": ".ds-item-card { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px; border: 1px solid #e5e7eb; border-radius: 10px; background: #fff; cursor: pointer; transition: all 0.15s; text-align: left; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: inherit; } .ds-item-card:hover { border-color: #10b981; box-shadow: 0 0 0 2px #d1fae5; } .ds-item-name { flex: 1; font-weight: 500; font-size: 14px; } .ds-item-price { font-weight: 600; font-size: 14px; color: #374151; white-space: nowrap; }"
+    },
+    {
+      "name": "Bottom Sheet Modal",
+      "kind": "custom",
+      "refersTo": "modal",
+      "description": "Bottom-sheet modal for assigning items to participants.",
+      "html": "<div class=\"ds-modal-overlay\"><div class=\"ds-modal-content\"><div class=\"ds-modal-header\"><h3>Nasi Goreng</h3><span class=\"ds-modal-price\">Rp35.000</span></div><p class=\"ds-modal-hint\">Siapa aja yang pesan ini?</p><button class=\"ds-btn-primary\" style=\"width:100%\">Selesai</button></div></div>",
+      "css": ".ds-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: flex-end; z-index: 100; } .ds-modal-content { width: 100%; max-width: 480px; margin: 0 auto; background: #fff; border-radius: 16px 16px 0 0; padding: 24px; } .ds-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; } .ds-modal-header h3 { font-size: 17px; font-weight: 600; margin: 0; } .ds-modal-price { font-weight: 700; font-size: 17px; color: #059669; } .ds-modal-hint { font-size: 13px; color: #9ca3af; margin-bottom: 16px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Split Jar",
+    "overview": "Everyone tosses their share into the jar — casual, communal, done. AntiNgutang's visual system is a clean, mobile-first interface that feels like a helpful friend handling the math. White surfaces, a fresh green accent, and generous rounded corners create a space that's approachable without being childish, efficient without feeling cold. The system explicitly rejects: gamified or cartoonish bill splitters, corporate banking aesthetics, and generic SaaS dashboard layouts. Every screen is built for one-handed use at a restaurant table — big tap targets, bottom-sheet modals, minimal scroll.",
+    "keyCharacteristics": [
+      "Clean white surfaces with a single fresh green accent",
+      "Generous rounded corners (12px default) for approachability",
+      "Flat by default — borders and spacing create hierarchy, not shadows",
+      "Mobile-first, thumb-friendly tap targets",
+      "Indonesian warmth in tone, not in decoration"
+    ],
+    "rules": [
+      { "name": "The One Accent Rule", "body": "Fresh Green is the only accent color. It appears on ≤15% of any screen — buttons, tags, focus rings. Its rarity is the point: when green appears, it means 'act here' or 'this is done.'", "section": "colors" },
+      { "name": "The Flat-By-Default Rule", "body": "Surfaces are flat at rest. Borders create card boundaries; shadows appear only as a deliberate signal (the summary card's lift). No shadow on hover, no shadow on cards.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use Fresh Green as the single accent — on buttons, focus rings, tags, and selected states only.",
+      "Do keep cards flat with a 1px border. Let the border define the card boundary.",
+      "Do use bottom-sheet modals for mobile interactions — they feel native and keep the user in context.",
+      "Do use the system font stack for maximum performance and native feel.",
+      "Do keep tap targets at least 44px for thumb-friendly interaction.",
+      "Do use proportional spacing (16px card padding, 12px between items) for consistent rhythm."
+    ],
+    "donts": [
+      "Don't use green decoratively — it must always signal action or completion.",
+      "Don't add shadows to cards at rest. Borders define boundaries.",
+      "Don't use gradient text, glassmorphism, or side-stripe borders.",
+      "Don't gamify the interface — no badges, progress bars, or animations that feel like a game.",
+      "Don't use numbered section markers (01 / 02 / 03) or tiny uppercase tracked eyebrows.",
+      "Don't use gray text on colored backgrounds — use a darker shade of the background's own hue instead.",
+      "Don't nest cards — cards are single-layer containers."
+    ]
+  }
+}
